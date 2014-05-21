@@ -25,7 +25,7 @@ void sirala();
 void kayit_sil();
 void kayit_kontrol();
 
-//Public deðiþkenler
+//Public degiskenler
 FILE *dosya;
 int kSayi = 0 ;  //kisi sayisini tutar.
 
@@ -39,12 +39,12 @@ int main(){
 }
 
 
-
+// Rehber'den kayit silen fonksiyon
 void kayit_sil(){
      
      char secim ,silinecek[15];
      struct TelefonRehber gecici;
-     cout << "silmek istediginiz kisinin adini giriniz: \n";
+     cout << "Silmek istediginiz kisinin adini giriniz: \n";
      cin >> silinecek;
      
      for(int i=0 ; i<kSayi; i++){
@@ -59,7 +59,7 @@ void kayit_sil(){
                      cout <<"Web         :" <<Rehber[i].web<<endl;
                      cout <<"Adres       :"<<Rehber[i].adres<<endl; 
                      
-                     cout <<"Silmek istediginizden emin misiniz?\n";
+                     cout <<"Silmek istediginizden emin misiniz? Evet ise 'e' tuÅŸuna basÄ±nÄ±z. HayÄ±r ise herhangi bir tuÅŸa basÄ±nÄ±z.\n";
                      cin >> secim;
                      
                      if(secim == 'e' ){
@@ -74,7 +74,7 @@ void kayit_sil(){
      dosyaya_yaz();
      menu();
 }
-
+//Rehberi listeleyen fonksiyon
 void kayit_listele(){
      
      sirala();
@@ -92,12 +92,13 @@ void kayit_listele(){
      menu();    
 }
 
+//Rehberi sÄ±ralayan fonksiyon
 void sirala(){
      struct TelefonRehber gecici;
      for(int i=0 ; i<kSayi ; i++){
              for(int j=i;j<kSayi;j++){
              int sonuc = strcmp(Rehber[i].ad , Rehber[j].ad);
-             /*2.cisi 1 den kücük */
+             /*2.cisi 1 den kï¿½cï¿½k */
                  if(sonuc > 0){
                           gecici = Rehber[j];
                           Rehber[j] = Rehber[i];
@@ -108,6 +109,7 @@ void sirala(){
      }    
 }
 
+//Rehberdeki herhangi bir kayÄ±tta deÄŸiÅŸiklik yaptÄ±ran fonksiyon
 void kayit_duzeltme(){
      char aranan[100];
      cout<<"Aradiginiz kisinin adini giriniz: ";
@@ -121,7 +123,7 @@ void kayit_duzeltme(){
      }else{
        
       
-       cout <<"Güncellemek istediginiz kisi bilgileri\n";
+       cout <<"Gï¿½ncellemek istediginiz kisi bilgileri\n";
            
        cout <<"1-Ad    : " <<Rehber[kSirasi].ad<<endl;    
        cout <<"2-Soyad : " <<Rehber[kSirasi].soyad<<endl; 
@@ -133,7 +135,7 @@ void kayit_duzeltme(){
        cout <<"8-Adres       :"<<Rehber[kSirasi].adres<<endl;      
       
        do{
-       cout <<"Güncellemek istdiginiz bilgiyi seciniz.\n";
+       cout <<"Gï¿½ncellemek istdiginiz bilgiyi seciniz.\n";
        cin >>secim;
        
        
@@ -175,7 +177,7 @@ void kayit_duzeltme(){
                       break;             
        }
        
-       cout <<"Güncellemeye devam etmek istiyor musunuz?\n";
+       cout <<"Guncellemeye devam etmek istiyor musunuz?\n";
        cin >>devam;
       }while(devam == 'e' || devam =='E');
       {
@@ -186,8 +188,9 @@ void kayit_duzeltme(){
      }
 }
 
+//Dosyaya yazdÄ±ran fonksiyon
 void dosyaya_yaz(){
-         //remove dosyayi silip yeniden olusturduk.. remove return dönderdiði için int degiskenine atama yaptik.
+         //remove dosyayi silip yeniden olusturduk.. remove return donderdigi icin int degiskenine atama yaptik.
          int a =  remove("rehber.txt");
          dosya = fopen("rehber.txt","a");
          for(int i=0;i<kSayi;i++)
@@ -197,6 +200,7 @@ void dosyaya_yaz(){
          fclose(dosya);
      }
 
+//Ä°sme gore rehberde kayÄ±t arayan fonksiyon
 int  kayit_arama(char *aranan){
      
      for(int i=0 ; i<kSayi ; i++){
@@ -209,7 +213,7 @@ int  kayit_arama(char *aranan){
 }
 
 
-//Dosyayý okuyarak her elemaný struct dizisine atar
+//DosyayÄ± okuyarak her elemanÄ± struct dizisine atar
 void dosya_oku(){
 
 dosya = fopen("rehber.txt","r");
@@ -221,9 +225,9 @@ fclose(dosya);
 
 }
 
-//Dosyaya kayýt ekleme iþlei yapar
+//Dosyaya kayÄ±t ekleme islemi yapar
 void kayit_ekleme(){
-                    //Dosyayý aç
+                    //Dosyayï¿½ aï¿½
                 dosya = fopen("rehber.txt","a");
                 char tus;
                     
@@ -267,7 +271,7 @@ void kayit_ekleme(){
                              
                      fprintf(dosya,"%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",Rehber[kSayi].ad,Rehber[kSayi].soyad,Rehber[kSayi].tel1 , Rehber[kSayi].tel2 , Rehber[kSayi].tel3 ,Rehber[kSayi].e_posta , Rehber[kSayi].web ,Rehber[kSayi].adres);
                      kSayi++;        
-                     cout <<"\n\nEkleme islemine devam etmek istiyorsaniz 'e' veya 'E' tusuna basiniz. Ýstemiyorsaniz herhangi bir tusa basiniz.\n ";
+                     cout <<"\n\nEkleme islemine devam etmek istiyorsaniz 'e' veya 'E' tusuna basiniz. ï¿½stemiyorsaniz herhangi bir tusa basiniz.\n ";
                      cin >>tus;
                     }while(tus == 'e' || tus== 'E' );
                     {          fclose(dosya);
@@ -277,7 +281,7 @@ void kayit_ekleme(){
 }
 
 
-
+//KullanÄ±ocÄ±ya yapmayÄ± istedigi islemi soran menu fonksiyonu
 void menu(){
              
                     int secim;      
@@ -292,7 +296,7 @@ void menu(){
                     cout <<"---------------------------------\n";
                     cin  >>secim;
                              
-                             /*Secilen iþlemin ait oldugu fonk. çaðýralým*/
+                             /*Secilen iï¿½lemin ait oldugu fonk. ï¿½aï¿½ï¿½ralï¿½m*/
                              switch(secim){
                                     
                                     case 1:
